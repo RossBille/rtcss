@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name='keywords' content='WebRTC, HTML5, JavaScript'/>
+    <meta name='description' content='WebRTC Reference App'/>
+    <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1'>
+
+    <base target='_blank'>
+
+    <title>WebRTC client</title>
+
+</head>
+
+<body>
+
+<div id='container'>
+    <div id="me">
+        <form>
+            <fieldset id="name">
+                <input id="firstname" name="First_Name" type="text" data-tracked="true" data-event="keyup" placeholder="First Name"/>
+                <input id="lastname" name="Surname" type="text" data-tracked="true" data-event="change" placeholder="Surname"/>
+                <input type="file" id="imageLoader" name="imageLoader"/>
+            </fieldset>
+            <div id="keywords">
+                <label for="public-keywords">Public Key Interests:</label>
+                <textarea id="public-keywords" name="public-keywords" placeholder="keyword1; keyword2; ..."></textarea>
+                <label for="private-keywords">Private Key Interests:</label>
+                <textarea id="private-keywords" name="private-keywords" placeholder="keyword1; keyword2; ..."></textarea>
+            </div>
+            <fieldset id="availabilities">
+                <legend>Availabilities:</legend>
+                <table>
+                    <!--(th>label[for=time$@9]{$$@9:00})*8-->
+                    <!--tr>(th>input[type=checkbox,value=$@9,name=time$@9,id=time$@9]+label[for=time$@9]{$$@9:00})*8-->
+                    <!--(tr>th>input[type=checkbox,value=$@9,name=time$@9,id=time$@9]+label[for=time$@9]{$$@9:00}^td>span.event)*8-->
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="9" name="time9" id="time9"/>
+                            <label for="time9">09:00</label>
+                        </th>
+                        <td><span class="event"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="10" name="time10" id="time10"/>
+                            <label for="time10">10:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="11" name="time11" id="time11"/>
+                            <label for="time11">11:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="12" name="time12" id="time12"/>
+                            <label for="time12">12:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="13" name="time13" id="time13"/>
+                            <label for="time13">13:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="14" name="time14" id="time14"/>
+                            <label for="time14">14:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="15" name="time15" id="time15"/>
+                            <label for="time15">15:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input type="checkbox" value="16" name="time16" id="time16"/>
+                            <label for="time16">16:00</label>
+                        </th>
+                        <td><span class="event"></span></td>
+                    </tr>
+
+                </table>
+            </fieldset>
+            <fieldset id="map">
+                <legend>Location:</legend>
+                <div id="mymapholder"></div>
+            </fieldset>
+        </form>
+        <canvas id="imageCanvas" width="150px" height="150px"></canvas>
+    </div>
+    <div id="them"></div>
+</div>
+<aside id="notification-bar">
+    <h3>Notifications</h3>
+    <ul id="notification-stage"></ul>
+    <button id="clear">Clear</button>
+</aside>
+
+<script src='/socket.io/socket.io.js'></script>
+<script src="dist/peerManager.min.js"></script>
+<script src="dist/signallingServer.min.js"></script>
+</body>
+</html>
