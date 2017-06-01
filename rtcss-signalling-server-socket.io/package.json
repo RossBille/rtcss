@@ -1,0 +1,32 @@
+{
+  "name": "rtcss-signalling-server-socket.io",
+  "version": "1.0.0",
+  "description": "simple signalling server for rtcss written with socket.ioo",
+  "main": "lib/server.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --presets env",
+    "test": "echo 'not yet implemented'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RossBille/rtcss.git"
+  },
+  "keywords": [
+    "webRTC"
+  ],
+  "author": "Ross Bille",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/RossBille/rtcss/issues"
+  },
+  "homepage": "https://github.com/RossBille/rtcss#readme",
+  "dependencies": {
+    "http": "0.0.0",
+    "node-static": "^0.7.9",
+    "socket.io": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.1"
+  }
+}
