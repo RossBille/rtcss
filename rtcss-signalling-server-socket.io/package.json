@@ -1,6 +1,6 @@
 {
   "name": "rtcss-signalling-server-socket.io",
-  "version": "1.0.0-alpha",
+  "version": "1.0.2-alpha",
   "description": "simple signalling server for rtcss written with socket.ioo",
   "main": "lib/server.js",
   "scripts": {
