@@ -1,9 +1,11 @@
 /**
  * Created by rossbille on 22/05/2015.
  */
+import io from 'socket.io-client'
 
 export default class SignallingClient {
-    constructor() {
+    constructor(path) {
+        this.path = path;
         this.onId = null;
         this.onClients = null;
         this.onNewClient = null;
@@ -14,34 +16,25 @@ export default class SignallingClient {
     }
 
     connect() {
-        const me = this;
-        if (me.onId === null ||
-            me.onClients === null ||
-            me.onNewClient === null ||
-            me.onRemove === null ||
-            me.onMessage === null) {
+        if (this.onId === null ||
+            this.onClients === null ||
+            this.onNewClient === null ||
+            this.onRemove === null ||
+            this.onMessage === null) {
             throw new Error("Please setup all callbacks before trying to connect.");
         }
 
-        me.socket = io.connect({reconnection: false});
+        this.socket = io.connect(this.path, {reconnection: false});
 
-        me.socket.on('id', function (id) {
-            me.onId(id);
-        });
+        this.socket.on('id', (id) => { this.onId(id); });
 
-        me.socket.on('clients', function (clients) {
-            me.onClients(clients);
-        });
+        this.socket.on('clients', (clients) => { this.onClients(clients); });
 
-        me.socket.on('new client', function (client) {
-            me.onNewClient(client);
-        });
-        me.socket.on('remove', function (client) {
-            me.onRemove(client);
-        });
-        me.socket.on('message', function (message) {
-            me.onMessage(message);
-        });
+        this.socket.on('new client', (client) => { this.onNewClient(client); });
+
+        this.socket.on('remove', (client) => { this.onRemove(client); });
+
+        this.socket.on('message', (message) => { this.onMessage(message); });
     }
 
     sendMessage(message) {

@@ -1,9 +1,9 @@
 {
   "name": "rtcss-core",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha",
   "description": "rtcss core library.",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib --presets es2015",
     "test": "echo 'not yet implemented'"
   },
   "author": "Ross Bille",
