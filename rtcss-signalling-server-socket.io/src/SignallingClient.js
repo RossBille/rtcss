@@ -2,7 +2,7 @@
  * Created by rossbille on 22/05/2015.
  */
 
-export class SignallingServer {
+export default class SignallingClient {
     constructor() {
         this.onId = null;
         this.onClients = null;

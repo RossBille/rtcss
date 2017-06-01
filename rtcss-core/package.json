@@ -1,0 +1,17 @@
+{
+  "name": "rtcss-core",
+  "version": "1.0.0",
+  "description": "rtcss core library.",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "echo 'not yet implemented'"
+  },
+  "author": "Ross Bille",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/RossBille/rtcss",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}

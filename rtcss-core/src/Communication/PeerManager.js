@@ -4,7 +4,7 @@
 
 import DataChannel from "./DataChannel";
 import WritableTrackedAttribute from "./Attributes/WritableTrackedAttribute";
-export class PeerManager {
+export default class PeerManager {
 
     constructor(signallingServer,
                 onReceivedAttribute,
