@@ -109,7 +109,6 @@ class DataChannel {
     }
 
     update(attribute) {
-        console.log(`datachannel#update(${JSON.stringify(attribute)})`);
         if (this.conn.readyState === "open") {
             console.log("connection is open");
             console.log(this.conn);
