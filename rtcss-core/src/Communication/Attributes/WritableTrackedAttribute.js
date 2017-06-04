@@ -16,7 +16,7 @@ export default class WritableTrackedAttribute {
 
     update(){
         console.log("#update()");
-        console.log(`datachannels to send to: ${JSON.stringify(this.datachannels)}`);
+        console.log(`datachannels to send to:`);
         console.log(this.datachannels);
         this.datachannels.forEach((datachannel) => {
             datachannel.update(this);
