@@ -14,6 +14,12 @@ export default class WritableTrackedAttribute {
         });
     }
 
+    signalRemove() {
+        this.datachannels.forEach((dataChannel) => {
+            dataChannel.removeTrackedAttribute(this);
+        });
+    }
+
     update(){
         console.log("#update()");
         console.log(`datachannels to send to:`);

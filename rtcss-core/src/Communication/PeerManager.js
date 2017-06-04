@@ -260,8 +260,19 @@ export default class PeerManager {
         }
     }
 
+    removeAttribute(name) {
+        console.log(`#removeAttribute(${name})`);
+        const attributeToRemove = this.attributes.filter(attribute => name === attribute.name)[0];
+        if (!attributeToRemove) {
+            return;
+        }
+        attributeToRemove.signalRemove();
+
+        this.attributes = this.attributes.filter(attribute => name !== attribute.name);
+    }
+
     createAttribute(name, value) {
-        console.log(`#createAttribute(${name}, ${JSON.stringify(value)})`)
+        console.log(`#createAttribute(${name}, ${JSON.stringify(value)})`);
         var datachannels = [];
         for (var clientId in this.clients) {
             datachannels.push(this.clients[clientId].pc.datachannel);

@@ -66,6 +66,14 @@ class DataChannel {
         return this.values[attribute.getName()];
     }
 
+    removeTrackedAttribute(attribute) {
+        this.conn.send(JSON.stringify({
+            type: "remove",
+            name: attribute.getName()
+        }));
+        this.trackedAttributes = this.trackedAttributes.filter(trackedAttribute => attribute.getName() !== trackedAttribute.getName());
+    }
+
     addTrackedAttribute(attribute) {
         console.log(attribute);
         const message = {
