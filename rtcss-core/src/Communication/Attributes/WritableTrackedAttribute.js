@@ -12,14 +12,6 @@ export default class WritableTrackedAttribute {
         this.datachannels.forEach((datachannel) => {
             datachannel.addTrackedAttribute(this);
         });
-
-        if (typeof this.value === "object" && this.value !== null) {
-            if (Object.observe) {
-                Object.observe(this.value, this.update.bind(this));
-            }
-            // needed to explicitly bind "this" instance when Object calls update()
-            // see https://github.com/Microsoft/TypeScript/wiki/%27this%27-in-TypeScript
-        }
     }
 
     update(){
@@ -50,10 +42,6 @@ export default class WritableTrackedAttribute {
     setValue(val) {
         console.log(`settingValue(${JSON.stringify(val)})`);
         this.value = val;
-        if (typeof this.value === "object" && this.value !== null) {
-            console.log("is typeof object");
-            Object.observe(this.value, this.update);
-        }
         this.update();
     }
 
