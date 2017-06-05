@@ -49,9 +49,11 @@ class DataChannel {
             },
             remove: ({name}) => {
                 console.log("Got remove event");
-                const attributeToRemove = this.trackedAttributes.filter(attribute => isAttributeName(attribute, name));
+                const attributeToRemove = this.trackedAttributes.filter(attribute => isAttributeName(attribute, name))[0];
                 this.trackedAttributes = this.trackedAttributes.filter(attribute => !isAttributeName(attribute, name));
-                this.onRemoveAttribute(attributeToRemove);
+                if (attributeToRemove) {
+                    this.onRemoveAttribute(attributeToRemove);
+                }
             }
         };
 
