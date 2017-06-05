@@ -268,13 +268,13 @@ export default class PeerManager {
 
     removeAttribute(name) {
         console.log(`#removeAttribute(${name})`);
-        const attributeToRemove = this.attributes.filter(attribute => name === attribute.name)[0];
+        const attributeToRemove = this.attributes[name];
         if (!attributeToRemove) {
             return;
         }
         attributeToRemove.signalRemove();
 
-        this.attributes = this.attributes.filter(attribute => name !== attribute.name);
+        delete this.attributes[name];
     }
 
     createAttribute(name, value) {

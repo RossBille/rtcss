@@ -2,7 +2,7 @@
  * Created by rossbille on 18/05/2015.
  */
 
-import Message from "./Messages/Message";
+import xMessage from "./Messages/Message";
 import ReadOnlyTrackedAttribute from "./Attributes/ReadOnlyTrackedAttribute";
 import MessageFrom from "./Messages/MessageFrom";
 
