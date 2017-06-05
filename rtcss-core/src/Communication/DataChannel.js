@@ -47,7 +47,7 @@ class DataChannel {
                 this.values[trackedAttribute.getName()] = trackedAttribute.getValue();
                 onReceivedAttribute(trackedAttribute);
             },
-            remove: (name) => {
+            remove: ({name}) => {
                 console.log("Got remove event");
                 const attributeToRemove = this.trackedAttributes.filter(attribute => isAttributeName(attribute, name));
                 this.trackedAttributes = this.trackedAttributes.filter(attribute => !isAttributeName(attribute, name));
