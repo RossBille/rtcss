@@ -6,11 +6,17 @@ import Message from "./Messages/Message";
 import ReadOnlyTrackedAttribute from "./Attributes/ReadOnlyTrackedAttribute";
 import MessageFrom from "./Messages/MessageFrom";
 
+
+function isAttributeName(attribute, name) {
+    return name === attribute.getName();
+}
+
 class DataChannel {
-    constructor(conn, onReceivedAttribute, onUpdate) {
+    constructor(conn, onReceivedAttribute, onUpdate, onRemoveAttribute) {
         this.conn = conn;
         this.onReceivedAttribute = onReceivedAttribute;
         this.onUpdate = onUpdate;
+        this.onRemoveAttribute = onRemoveAttribute;
         this.trackedAttributes = [];
         this.values = {};
         this.events = {
@@ -40,6 +46,12 @@ class DataChannel {
                 this.trackedAttributes.push(trackedAttribute);
                 this.values[trackedAttribute.getName()] = trackedAttribute.getValue();
                 onReceivedAttribute(trackedAttribute);
+            },
+            remove: (name) => {
+                console.log("Got remove event");
+                const attributeToRemove = this.trackedAttributes.filter(attribute => isAttributeName(attribute, name));
+                this.trackedAttributes = this.trackedAttributes.filter(attribute => !isAttributeName(attribute, name));
+                this.onRemoveAttribute(attributeToRemove);
             }
         };
 
@@ -71,7 +83,6 @@ class DataChannel {
             type: "remove",
             name: attribute.getName()
         }));
-        this.trackedAttributes = this.trackedAttributes.filter(trackedAttribute => attribute.getName() !== trackedAttribute.getName());
     }
 
     addTrackedAttribute(attribute) {

@@ -10,6 +10,7 @@ export default class PeerManager {
                 onReceivedAttribute,
                 onReceivedConnection,
                 onRemovedConnection,
+                onRemoveAttribute,
                 config) {
 
         this.sdpConstraints = {
@@ -23,6 +24,7 @@ export default class PeerManager {
         this.onReceivedAttribute = onReceivedAttribute;
         this.onReceivedConnection = onReceivedConnection;
         this.onRemovedConnection = onRemovedConnection;
+        this.onRemoveAttribute = onRemoveAttribute;
 
         this.attributes = {};
         this.clients = {};
@@ -79,6 +81,10 @@ export default class PeerManager {
             this.config.fire(clientId, att);
         };
 
+        const dataChannelOnRemoveAttribute = (attribute) => {
+            this.onRemoveAttribute(clientId, attribute);
+        };
+
         const handleIceCandidate = (event) => {
             if (event.candidate) {
                 this.signallingServer.sendMessage({
@@ -94,7 +100,7 @@ export default class PeerManager {
 
         const receivedConnection = (conn, result) => {
             console.log("#receivedConnection");
-            result.datachannel = new DataChannel(conn, dataChannelOnReceivedAttribute, datachannelOnUpdate);
+            result.datachannel = new DataChannel(conn, dataChannelOnReceivedAttribute, datachannelOnUpdate, dataChannelOnRemoveAttribute);
             result.datachannel.on("messageTo", function (data) {
                 console.log("got message: " + data.value + " from: " + clientId + ", to:" + data.toClient);
                 if (this.clients[data.toClient]) {
