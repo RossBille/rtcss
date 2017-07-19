@@ -33,12 +33,17 @@ export default class PeerManager {
 
         this.setupSignallingServer();
 
-        window.onbeforeunload = function () {
+        const existingOnBeforeUnload = window.onbeforeunload;
+
+        window.onbeforeunload = () => {
             for (const clientId in this.clients) {
                 if (this.clients.hasOwnProperty(clientId)) {
                     const client = this.clients[clientId];
                     client.pc.datachannel.fire("disconnect");
                 }
+            }
+            if (existingOnBeforeUnload) {
+                existingOnBeforeUnload();
             }
         }
     }
