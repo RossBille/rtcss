@@ -34,11 +34,17 @@ export default class PeerManager {
         this.setupSignallingServer();
 
         window.onbeforeunload = function () {
-            for (var clientId in this.clients) {
-                var client = this.clients[clientId];
-                client.pc.datachannel.fire("disconnect");
+            for (const clientId in this.clients) {
+                if (this.clients.hasOwnProperty(clientId)) {
+                    const client = this.clients[clientId];
+                    client.pc.datachannel.fire("disconnect");
+                }
             }
         }
+    }
+
+    getStats(filter = null) {
+        return Object.keys(this.clients).map((clientId)=>this.clients[clientId].pc.getStats(filter));
     }
 
     setupSignallingServer() {
@@ -247,8 +253,10 @@ export default class PeerManager {
     }
 
     broadcast(message) {
-        for (var client in this.clients) {
-            this.clients[client].pc.datachannel.send(message);
+        for (const clientId in this.clients) {
+            if (this.clients.hasOwnProperty(clientId)) {
+                this.clients[clientId].pc.datachannel.send(message);
+            }
         }
     }
 
