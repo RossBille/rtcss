@@ -49,7 +49,7 @@ export default class PeerManager {
     }
 
     getStats(filter = null) {
-        return Object.keys(this.clients).map((clientId)=>this.clients[clientId].pc.getStats(filter));
+        return Object.keys(this.clients).map((clientId)=>this.clients[clientId].pc.peerconnection.getStats(filter));
     }
 
     setupSignallingServer() {
