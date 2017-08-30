@@ -4,6 +4,7 @@
 
 import DataChannel from "./DataChannel";
 import WritableTrackedAttribute from "./Attributes/WritableTrackedAttribute";
+
 export default class PeerManager {
 
     constructor(signallingServer,
@@ -33,6 +34,8 @@ export default class PeerManager {
 
         this.setupSignallingServer();
 
+        this.stats = navigator.mozGetUserMedia ? this.mozillaGetStats : this.chromeGetStats;
+
         const existingOnBeforeUnload = window.onbeforeunload;
 
         window.onbeforeunload = () => {
@@ -48,9 +51,31 @@ export default class PeerManager {
         }
     }
 
-    getStats(filter = null) {
-        return Object.keys(this.clients).map(
-            clientId => new Promise(resolve => this.clients[clientId].pc.peerconnection.getStats(filter, report => resolve)));
+    mozillaGetStats(clientId, selector = null) {
+        return this.clients[clientId].pc.getStats(selector);
+    }
+
+    chromeGetStats(clientId, selector = null) {
+        return new Promise((resolve, reject) => {
+            this.clients[clientId].pc.getStats((response) => {
+                const standardReport = {};
+                response.result().forEach((report) => {
+                    const standardStats = {
+                        id: report.id,
+                        type: report.type
+                    };
+                    report.names().forEach((name) => {
+                        standardStats[name] = report.stat(name);
+                    });
+                    standardReport[standardStats.id] = standardStats;
+                });
+                resolve(standardReport);
+            }, selector, reject);
+        });
+    }
+
+    getStats(selector = null) {
+        return Object.keys(this.clients).map(clientId => this.stats(clientId, selector));
     }
 
     setupSignallingServer() {
