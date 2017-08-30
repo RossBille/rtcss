@@ -52,12 +52,12 @@ export default class PeerManager {
     }
 
     mozillaGetStats(clientId, selector = null) {
-        return this.clients[clientId].pc.getStats(selector);
+        return this.clients[clientId].pc.peerconnection.getStats(selector);
     }
 
     chromeGetStats(clientId, selector = null) {
         return new Promise((resolve, reject) => {
-            this.clients[clientId].pc.getStats((response) => {
+            this.clients[clientId].pc.peerconnection.getStats((response) => {
                 const standardReport = {};
                 response.result().forEach((report) => {
                     const standardStats = {
