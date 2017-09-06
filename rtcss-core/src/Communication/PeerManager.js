@@ -138,18 +138,14 @@ export default class PeerManager {
         const receivedConnection = (conn, result) => {
             console.log("#receivedConnection");
             result.datachannel = new DataChannel(conn, dataChannelOnReceivedAttribute, datachannelOnUpdate, dataChannelOnRemoveAttribute);
-            result.datachannel.on("messageTo", function (data) {
+            result.datachannel.on("messageTo", data => {
                 console.log("got message: " + data.value + " from: " + clientId + ", to:" + data.toClient);
                 if (this.clients[data.toClient]) {
                     this.clients[data.toClient].pc.datachannel.sendFrom(clientId, data.value);
                 }
             });
-            result.datachannel.on("messageFrom", function (data) {
-                console.log("got message: " + data.value + ", from: " + data.from + ", through: " + clientId);
-            });
-            result.datachannel.on("disconnect", function () {
-                this.removeClient(clientId);
-            });
+            result.datachannel.on("messageFrom", data => console.log("got message: " + data.value + ", from: " + data.from + ", through: " + clientId));
+            result.datachannel.on("disconnect", _ => this.removeClient(clientId));
             this.onReceivedConnection(clientId);
             for (const attribute in this.attributes) {
                 result.datachannel.addTrackedAttribute(this.attributes[attribute]);
